@@ -1,0 +1,15 @@
+
+namespace scratchphp = "http://www.scratchphp.org/"
+
+element scratchphp:settings {
+   element setting  {
+      attribute name { text },
+
+      # supported setting types
+      attribute type { "text" | "boolean" | "integer" | "number" | "object" }
+      
+      # setting element can have either a "value" attribute and an empty body
+      # or no value attribute and the value stored in the body.
+      (attribute value { text }, empty) | { text }
+   }*
+}
