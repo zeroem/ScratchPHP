@@ -1,0 +1,8 @@
+# Backup Files From emacs
+*~
+
+# emacs file dumps for unsaved changes
+#*#
+
+# lua bytecode files
+*.lbc
