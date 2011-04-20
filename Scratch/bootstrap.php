@@ -1,26 +1,30 @@
 <?php
 
+require_once("./defines.php");
+
 /* 
-   Force the working directory to be the ScratchPHP/Source directory.
+   Force the working directory to be the ScratchPHP directory.
    Not sure if this is a good idea, may interfere with Unit Testing.
 */
-chdir(basename(__FILE__));
+chdir(SCRATCHPHP_INSTALL);
 
-require_once("./defines.php");
 
 /**
  * Convert a Fully Qualified Class Name into a 
  * case sensitive file path relative to the
- * Source directory.
+ * ScratchPHP Install directory.
  * 
  * @param string $class Fully Qualified Class Name
  */
 function scratchphp_autoload($class) {
-  $path = ".".str_replace("\\",DS,$class) . ".php";
+  $parts = explode("\\",$class);
+  array_splice($parts,1,0,array("Source"));
+  $path = "./" . implode("/",$parts) . ".php";
 
   if(is_readable($path)) {
     include_once($path);
   }
 }
 
-spl_autoload_register(scratchphp_autoload,false);
+spl_autoload_register("scratchphp_autoload",false);
+
