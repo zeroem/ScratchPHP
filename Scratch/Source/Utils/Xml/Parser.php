@@ -21,19 +21,25 @@ namespace Scratch\Utils\Xml;
 /**
  * An Object Oriented Wrapper on PHP's XML Parser module
  */
-class Parser {
+class Parser extends \Scratch\Utils\Subject {
+	const XML_TAG_OPEN = "xml.tag.open";
+	const XML_TAG_CLOSE = "xml.tag.close";
+	const XML_CDATA = "xml.cdata";
+	const XML_NS_START = "xml.namespace.start";
+	const XML_NS_END = "xml.namespace.end";
+	const XML_EXTERNAL_ENTITY = "xml.external_entity";
+	const XML_UNPARSED_ENTITY = "xml.unparsed_entity";
+	const XML_NOTATION = "xml.notation";
+	const XML_PI = "xml.processing_instructions";
+	const XML_DEFAULT = "xml.default";
+
+
 	/**
 	 * XML Parser Resource
 	 * @var resource
 	 */
 	private $parser;
 	private $chunkSize = 4096;
-
-	/**
-	 * List of Xml Event Listeners
-	 * @var array
-	 */
-	private $listeners = array();
 
 	public function __construct($encoding="UTF-8",$ns=false,$separator=":") {
 		if($ns) {
@@ -49,6 +55,7 @@ class Parser {
 		xml_set_default_handler($this->parser,"misc");
 		xml_set_start_namespace_decl_handler($this->parser,"startNamespaceDeclaration");
 		xml_set_end_namespace_decl_handler($this->parser,"endNamespaceDeclaration");
+		xml_set_notation_decl_handler($this->parser,"notation");
 
 		// Disable forced uppercase tag names
 		$this->setOption(XML_OPTION_CASE_FOLDING,0);
@@ -92,47 +99,36 @@ class Parser {
 		}
 	}
 
-	/**
-	 * Add an Xml Event Parser to this parser
-	 */
-	public function addListener(\Scratch\Xml\BasicParserListener $parser) {
-		$this->listeners[] = $parser;
-	}
-
 	private function tagOpen($parser,$name,$attr) {
-		foreach($this->listeners as $listener) {
-			$listener->tagOpen($this,$name,$attr);
-		}
+		$this->notify($this->makeEvent(self::XML_TAG_OPEN,array("name"=>$name,"attributes"=>$attr)));
 	}
 	
-	private function tagClose($parser,$name,$attr) {
-		foreach($this->listeners as $listener) {
-			$listener->tagClose($this,$name,$attr);
-		}
+	private function tagClose($parser,$name) {
+		$this->notify($this->makeEvent(self::XML_TAG_CLOSE,array("name"=>$name)));
 	}
 
 	private function cdata($parser,$data) {
-		foreach($this->listeners as $listener) {
-			$listener->cdata($this,$data);
-		}
+		$this->notify($this->makeEvent(self::XML_CDATA,$data));
 	}
 
 	private function misc($parser,$data) {
-		foreach($this->listeners as $listener) {
-			$listener->misc($this,$data);
-		}
+		$this->notify($this->makeEvent(self::XML_DEFAULT,$data));
 	}
 
 	private function startNamespaceDeclaration($parser,$prefix,$uri) {
-		foreach($this->listeners as $listener) {
-			$listener->startNamespaceDeclaration($this,$prefix,$uri);
-		}
+		$this->notify($this->makeEvent(self::XML_NS_START,array("prefix"=>$prefix,"uri"=>$uri)));
 	}
 
 	private function endNamespaceDeclaration($parser,$prefix,$uri) {
-		foreach($this->listeners as $listener) {
-			$listener->endNamespaceDeclaration($this,$prefix,$uri);
-		}
+		$this->notify($this->makeEvent(self::XML_NS_START,array("prefix"=>$prefix,"uri"=>$uri)));
+	}
+
+	private function notation($parser,$name,$base,$sys_id,$pub_id) {
+		$this->notify($this->makeEvent(self::XML_NS_START,array("name"=>$name,
+																"base"=>$base,
+																"system_id"=>$sys_id,
+																"public_id"=>$pub_id
+																)));
 	}
 
 
