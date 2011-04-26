@@ -21,7 +21,7 @@ class Event {
 	 */
 	private $data = null;
 
-	public function __construct(\Scratch\Utils\Subject $src, $type, $data = null) {
+	public function __construct(\Scratch\Utils\AbstractSubject $src, $type, $data = null) {
 		$this->src = $src;
 		$this->type = $type;
 		$this->data = $data;

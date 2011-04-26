@@ -2,7 +2,7 @@
 
 namespace Scratch\Utils;
 
-abstract class AstractSubject {
+abstract class AbstractSubject {
 	private $observers = array();
 
 	/**
@@ -23,8 +23,8 @@ abstract class AstractSubject {
 	 * @param string $type type of event to listen for
 	 * @param \Scratch\Observer $observer Object that will react to the event
 	 */
-	public function observe($type,\Scratch\Observer $observer) {
-		if(Utils\ArrayUtils::get($this->observers,$type)===false) {
+	public function observe($type,\Scratch\Utils\IObserver $observer) {
+		if(ArrayUtils::get($this->observers,$type,false)===false) {
 			$this->observers[$type] = array();
 		}
 
@@ -40,11 +40,14 @@ abstract class AstractSubject {
 	 */
 	protected function notify(\Scratch\Utils\Event $event) {
 		$ret = true;
-		$observers = &\Scratch\Utils\ArrayUtils::get($this->observers,$event->getType(),false);
+		$observers = &ArrayUtils::get($this->observers,$event->getType(),false);
 		
 		if($observers !== false) {
 			foreach($observers as $obs) {
-				$ret &= $obs->handle($event);
+				$val = $obs->doObserve($event);
+				if($val !== NULL) {
+					$ret = $ret && $val;
+				}
 			}
 		}
 
@@ -60,14 +63,13 @@ abstract class AstractSubject {
 	 */
 	protected function notifyUntil(\Scratch\Utils\Event $event) {
 		$ret = true;
-		$observers = &\Scratch\Utils\ArrayUtils::get($this->observers,$event->getType(),false);
+		$observers = &ArrayUtils::get($this->observers,$event->getType(),false);
 		
 		if($observers !== false) {
 			foreach($observers as $obs) {
-				$ret = $obs->handle($event);
-
-				if($ret === false) {
-					break;x
+				if($obs->doObserve($event) === false) {
+					$ret = false;
+					break;
 				}
 			}
 		}
