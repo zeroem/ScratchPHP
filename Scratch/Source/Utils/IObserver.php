@@ -1,5 +1,5 @@
 <?php
 
-abstract class AbstractObserver {
+interface IObserver {
 	public function doObserve(\Scratch\Utils\Event $event);
 }
