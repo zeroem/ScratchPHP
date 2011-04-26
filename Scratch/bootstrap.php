@@ -1,6 +1,6 @@
 <?php
 
-require_once("./defines.php");
+define("SCRATCHPHP_INSTALL",realpath(__DIR__."/.."));
 
 /* 
    Force the working directory to be the ScratchPHP directory.
