@@ -6,6 +6,45 @@ abstract class AbstractSubject {
 	private $observers = array();
 
 	/**
+	 * Returns how many observers are currently attached to this Subject
+	 * @return integer
+	 */
+	public function countObservers() {
+		$count = 0;
+		foreach($this->observers as $row) {
+			$count += count($row);
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Removes all instances of the given Observer
+	 */
+	public function removeObserver($type, \Scratch\Utils\IObserver $obs = NULL) {
+		
+		if($obs !== NULL) {
+			$list = &ArrayUtils::get($this->observers,$type,false);;
+			if($list !== false) {
+				foreach($list as $k=>$observer) {
+					if($observer == $obs) {
+						unset($list[$k]);
+					}
+				}
+			}
+		} else {
+			$this->observers[$type] = array();
+		}
+	}
+
+	/**
+	 * detaches all observers from this subject.
+	 */
+	public function clearObservers() {
+		$this->observers = array();
+	}
+
+	/**
 	 * Helper function for creating events
 	 *
 	 * @param string $type

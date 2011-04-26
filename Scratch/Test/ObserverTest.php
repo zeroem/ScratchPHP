@@ -46,6 +46,19 @@ class ObserverTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($ret);
 		$this->assertEquals("TestObserverTwoTestObserverTwo",$output);
 	}
+
+	public function testCount() {
+		$this->assertEquals(self::$subject->countObservers(),4);
+	}
+
+	public function testRemove() {
+		$subject = new TestSubject();
+		$subject->removeObserver($subject::SUCCESS);
+		$this->assertEquals($subject->countObservers(),2);
+
+		$subject->removeObserver($subject::FAILED,new TestObserverTwo());
+		$this->assertEquals($subject->countObservers(),1);
+	}
 }
 
 
