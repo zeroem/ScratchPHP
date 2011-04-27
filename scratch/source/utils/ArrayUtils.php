@@ -1,6 +1,6 @@
 <?php
 
-namespace Scratch\Utils;
+namespace scratch\utils;
 
 class ArrayUtils {
 	static function &get(&$arr,$key,$default=null) {

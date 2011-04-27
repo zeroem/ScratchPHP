@@ -1,7 +1,7 @@
 <?php
 
-namespace Scratch\Utils;
+namespace scratch\utils;
 
 interface IObserver {
-	public function doObserve(\Scratch\Utils\Event $event);
+	public function doObserve(\scratch\utils\Event $event);
 }

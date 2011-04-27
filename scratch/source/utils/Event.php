@@ -21,21 +21,34 @@ class Event {
 	 */
 	private $data = null;
 
-	public function __construct(\Scratch\Utils\AbstractSubject $src, $type, $data = null) {
+	public function __construct(\scratch\utils\AbstractSubject $src, $type, $data = null) {
 		$this->src = $src;
 		$this->type = $type;
 		$this->data = $data;
 	}
 
+	/**
+	 * @return AbstractSubject
+	 */
 	public function getSource() {
 		return $this->src;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getType() {
 		return $this->type;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getData() {
 		return $this->data;
+	}
+
+	public function isType($str) {
+		return $str === $this->getType();
 	}
 }
