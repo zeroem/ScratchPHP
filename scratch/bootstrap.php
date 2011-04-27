@@ -18,7 +18,7 @@ chdir(SCRATCHPHP_INSTALL);
  */
 function scratchphp_autoload($class) {
   $parts = explode("\\",$class);
-  array_splice($parts,1,0,array("Source"));
+  array_splice($parts,1,0,array("source"));
   $path = "./" . implode("/",$parts) . ".php";
 
   if(is_readable($path)) {
