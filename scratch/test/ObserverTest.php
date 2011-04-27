@@ -1,6 +1,8 @@
 <?php
 
-class ObserverTest extends PHPUnit_Framework_TestCase {
+require_once("PHPUnit/Extensions/OutputTestCase.php");
+
+class ObserverTest extends PHPUnit_Extensions_OutputTestCase {
 	private static $subject;
 
 	public static function setUpBeforeClass() {
@@ -12,39 +14,27 @@ class ObserverTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testNotifyWithFailure() {
-		ob_start();
+		$this->expectOutputString("TestObserverOneFailsTestObserverTwo");
 		$ret = self::$subject->doFail();
-		$output = ob_get_clean();
-
 		$this->assertFalse($ret);
-		$this->assertEquals("TestObserverOneFailsTestObserverTwo",$output);
 	}
 
 	public function testNotifyUntilWithFailure() {
-		ob_start();
+		$this->expectOutputString("TestObserverOneFails");
 		$ret = self::$subject->doFailUntil();
-		$output = ob_get_clean();
-
 		$this->assertFalse($ret);
-		$this->assertEquals("TestObserverOneFails",$output);
 	}
 
 	public function testNotify() {
-		ob_start();
+		$this->expectOutputString("TestObserverTwoTestObserverTwo");
 		$ret = self::$subject->doWin();
-		$output = ob_get_clean();
-
 		$this->assertTrue($ret);
-		$this->assertEquals("TestObserverTwoTestObserverTwo",$output);
 	}
 
 	public function testNotifyUntil() {
-		ob_start();
+		$this->expectOutputString("TestObserverTwoTestObserverTwo");
 		$ret = self::$subject->doWinUntil();
-		$output = ob_get_clean();
-
 		$this->assertTrue($ret);
-		$this->assertEquals("TestObserverTwoTestObserverTwo",$output);
 	}
 
 	public function testCount() {
@@ -66,20 +56,20 @@ class ObserverTest extends PHPUnit_Framework_TestCase {
   Supporting Objects for the Observer pattern Tests
 */
 
-class TestObserverOneFails implements \Scratch\Utils\IObserver {
-	public function doObserve(\Scratch\Utils\Event $event) {
+class TestObserverOneFails implements \scratch\utils\IObserver {
+	public function doObserve(\scratch\utils\Event $event) {
 		print __CLASS__;
 		return false;
 	}
 }
 
-class TestObserverTwo implements \Scratch\Utils\IObserver {
-	public function doObserve(\Scratch\Utils\Event $event) {
+class TestObserverTwo implements \scratch\utils\IObserver {
+	public function doObserve(\scratch\utils\Event $event) {
 		print __CLASS__;
 	}
 }
 
-class TestSubject extends \Scratch\Utils\AbstractSubject {
+class TestSubject extends \scratch\utils\AbstractSubject {
 	const FAILED = "test.fail";
 	const SUCCESS = "test.success";
 
