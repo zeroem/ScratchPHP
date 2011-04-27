@@ -21,7 +21,7 @@ namespace Scratch\Utils\Xml;
 /**
  * An Object Oriented Wrapper on PHP's XML Parser module
  */
-class Parser extends \Scratch\Utils\Subject {
+class Parser extends \Scratch\Utils\AbstractSubject {
 	const XML_TAG_OPEN = "xml.tag.open";
 	const XML_TAG_CLOSE = "xml.tag.close";
 	const XML_CDATA = "xml.cdata";
@@ -63,6 +63,10 @@ class Parser extends \Scratch\Utils\Subject {
 		$this->setOption(XML_OPTION_SKIP_WHITE,1);
 	}
 
+	/**
+	 * Convenience function for parsing the contents of a stream
+	 * @param resource $res file handle for the stream to parse
+	 */
 	public function parseStream(resource $res) {
 		while(!feof($res)) {
 			$data = fread($res,$this->chunkSize);
@@ -70,6 +74,13 @@ class Parser extends \Scratch\Utils\Subject {
 		}
 	}
 
+	/**
+	 * Convenience function for parsing the contents of a URI.
+	 * If it works with fopen, it'll work with this, including remote urls,
+	 * file names, etc.
+	 *
+	 * @param string $path URI for the resource to open
+	 */
 	public function parseUri($path) {
 		$res = fopen($path,"r");
 		if($res !== false) {
@@ -82,6 +93,7 @@ class Parser extends \Scratch\Utils\Subject {
 
 	/**
 	 * Wrapper on the xml_parse function.  Throws an exception on bad data
+	 * @param $data data to parse
 	 */
 	public function parse($data) {
 		$result = xml_parse($this->parser,$data);
