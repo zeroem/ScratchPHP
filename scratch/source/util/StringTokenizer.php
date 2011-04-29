@@ -28,7 +28,7 @@ class StringTokenizer implements ITokenize {
 			// If there's another instance of the delimiter before the end of the string
 			if($end !== false) {
 				$ret = substr($this->data,$this->getOffset(),$end - $off);
-				$this->moveOffset($end - $off + 1);
+				$this->moveOffset($end - $off + strlen($this->getDelimiter()));
 			} else {
 				$this->finish();
 				$ret = substr($this->data,$this->getOffset());
