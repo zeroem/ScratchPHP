@@ -1,11 +1,11 @@
 <?php
 
-namespace Scratch\Utils;
+namespace scratch\util;
 
 class Event {
 	/**
 	 * Source of the event
-	 * @var \Scratch\Utils\Subject
+	 * @var \scratch\util\Subject
 	 */
 	private $src;
 
