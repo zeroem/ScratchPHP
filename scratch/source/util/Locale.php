@@ -41,7 +41,13 @@ class Locale extends AbstractLocale {
 	 * Converts a formatted string into a Locale Object
 	 */
 	public static function makeLocale($str) {
-		
+		$tk = new StringTokenizer($str);
+		$language = $tk->next("_");
+		$country = $tk->next(".");
+		$codeset = $tk->next("@");
+		$modifier = $tk->next();
+
+		return new Locale($language,$country,$codeset,$modifier);
 	}
 
 	public function getLanguage() {

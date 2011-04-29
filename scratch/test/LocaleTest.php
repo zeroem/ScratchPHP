@@ -22,4 +22,13 @@ class LocaleTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("{$lang}_{$coun}.{$char}","{$locale_lcc}");
 		$this->assertEquals("{$lang}_{$coun}.{$char}@{$mod}","{$locale_lccm}");
 	}
+
+	public function testLocaleParser() {
+		$locale = \scratch\util\Locale::makeLocale("en_US.UTF-8@something");
+
+		$this->assertEquals("en",$locale->getLanguage());
+		$this->assertEquals("US",$locale->getCountry());
+		$this->assertEquals("UTF-8",$locale->getCodeset());
+		$this->assertEquals("something",$locale->getModifier());
+	}
 }
