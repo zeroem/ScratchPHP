@@ -22,22 +22,22 @@ XML;
 
 
 	public function testTags() {
-		$parser = new \scratch\utils\xml\Parser();
+		$parser = new \scratch\util\xml\Parser();
 		$observer = new XmlObserver();
-		$parser->observe(\scratch\utils\xml\Parser::XML_TAG_OPEN, $observer);
-		$parser->observe(\scratch\utils\xml\Parser::XML_TAG_CLOSE, $observer);
-		$parser->observe(\scratch\utils\xml\Parser::XML_CDATA, $observer);
+		$parser->observe(\scratch\util\xml\Parser::XML_TAG_OPEN, $observer);
+		$parser->observe(\scratch\util\xml\Parser::XML_TAG_CLOSE, $observer);
+		$parser->observe(\scratch\util\xml\Parser::XML_CDATA, $observer);
 		$parser->parse(self::$xml_document);
-		$this->assertEquals(3,$observer->events[\scratch\utils\xml\Parser::XML_TAG_OPEN]);
-		$this->assertEquals(3,$observer->events[\scratch\utils\xml\Parser::XML_TAG_CLOSE]);
-		$this->assertEquals(1,$observer->events[\scratch\utils\xml\Parser::XML_CDATA]);
+		$this->assertEquals(3,$observer->events[\scratch\util\xml\Parser::XML_TAG_OPEN]);
+		$this->assertEquals(3,$observer->events[\scratch\util\xml\Parser::XML_TAG_CLOSE]);
+		$this->assertEquals(1,$observer->events[\scratch\util\xml\Parser::XML_CDATA]);
 	}
 }
 
-class XmlObserver implements \scratch\utils\IObserver {
+class XmlObserver implements \scratch\util\IObserver {
 	public $events = array();
-	public function doObserve(\scratch\utils\Event $event) {
-		if(\scratch\utils\ArrayUtils::get($this->events,$event->getType(),false) === false) {
+	public function doObserve(\scratch\util\Event $event) {
+		if(\scratch\util\ArrayUtils::get($this->events,$event->getType(),false) === false) {
 			$this->events[$event->getType()] = 0;
 		}
 		$this->events[$event->getType()]++;

@@ -2,9 +2,9 @@
 
   /**
    * @package scratch
-   * @subpackage utils
+   * @subpackage util
    */
-namespace scratch\utils;
+namespace scratch\util;
 
 /**
  * Command Interface

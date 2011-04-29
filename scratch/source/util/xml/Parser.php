@@ -16,12 +16,12 @@
 		notation - on encountering a notation, only found in DTDs
 		default - on anything that isn't matched above, eg doc type, xml declaration, etc
    */
-namespace scratch\utils\xml;
+namespace scratch\util\xml;
 
 /**
  * An Object Oriented Wrapper on PHP's XML Parser module
  */
-class Parser extends \scratch\utils\AbstractSubject {
+class Parser extends \scratch\util\AbstractSubject {
 	const XML_TAG_OPEN = "xml.tag.open";
 	const XML_TAG_CLOSE = "xml.tag.close";
 	const XML_CDATA = "xml.cdata";
@@ -121,7 +121,7 @@ class Parser extends \scratch\utils\AbstractSubject {
 
 	private function cdata($parser,$data) {
 		// HACK: work around for systems that do not support XML_OPTION_SKIP_WHITE
-		if(\scratch\utils\StringUtils::isNotBlank($data)) {
+		if(\scratch\util\StringUtils::isNotBlank($data)) {
 			$this->notify($this->makeEvent(self::XML_CDATA,$data));
 		}
 	}

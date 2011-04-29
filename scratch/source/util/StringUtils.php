@@ -1,6 +1,6 @@
 <?php
 
-namespace scratch\utils;
+namespace scratch\util;
 
 class StringUtils {
 	/**

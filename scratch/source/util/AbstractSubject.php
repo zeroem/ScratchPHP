@@ -1,6 +1,6 @@
 <?php
 
-namespace scratch\utils;
+namespace scratch\util;
 
 abstract class AbstractSubject {
 	private $observers = array();
@@ -21,7 +21,7 @@ abstract class AbstractSubject {
 	/**
 	 * Removes all instances of the given Observer
 	 */
-	public function removeObserver($type, \scratch\utils\IObserver $obs = NULL) {
+	public function removeObserver($type, \scratch\util\IObserver $obs = NULL) {
 		
 		if($obs !== NULL) {
 			$list = &ArrayUtils::get($this->observers,$type,false);;
@@ -49,10 +49,10 @@ abstract class AbstractSubject {
 	 *
 	 * @param string $type
 	 * @param mixed $data
-	 * @return \scratch\utils\Event
+	 * @return \scratch\util\Event
 	 */
 	protected function makeEvent($type,$data) {
-		return new \scratch\utils\Event($this,$type,$data);
+		return new \scratch\util\Event($this,$type,$data);
 	}
 
 	
@@ -62,7 +62,7 @@ abstract class AbstractSubject {
 	 * @param string $type type of event to listen for
 	 * @param \Scratch\Observer $observer Object that will react to the event
 	 */
-	public function observe($type,\scratch\utils\IObserver $observer) {
+	public function observe($type,\scratch\util\IObserver $observer) {
 		if(ArrayUtils::get($this->observers,$type,false)===false) {
 			$this->observers[$type] = array();
 		}
@@ -74,10 +74,10 @@ abstract class AbstractSubject {
 	 * Notify all observers of the event.  Returns false if one of the
 	 * observers fails (returns false).  Otherwise returns true upon completion
 	 *
-	 * @param \scratch\utils\Event $event the event that occurred
+	 * @param \scratch\util\Event $event the event that occurred
 	 * @return boolean
 	 */
-	protected function notify(\scratch\utils\Event $event) {
+	protected function notify(\scratch\util\Event $event) {
 		$ret = true;
 		$observers = &ArrayUtils::get($this->observers,$event->getType(),false);
 		
@@ -97,10 +97,10 @@ abstract class AbstractSubject {
 	 * Notify observers of the event until one fails (returns false).  Execution will then stop
 	 * and false will be returned.
 	 *
-	 * @param \scratch\utils\Event $event the event that occurred
+	 * @param \scratch\util\Event $event the event that occurred
 	 * @return boolean
 	 */
-	protected function notifyUntil(\scratch\utils\Event $event) {
+	protected function notifyUntil(\scratch\util\Event $event) {
 		$ret = true;
 		$observers = &ArrayUtils::get($this->observers,$event->getType(),false);
 		

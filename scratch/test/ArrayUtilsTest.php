@@ -4,13 +4,13 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase {
 	public function testGet() {
 		$testValue = "value";
 		$arr = array("key"=>$testValue);
-		$value = \scratch\utils\ArrayUtils::get($arr,"key");
+		$value = \scratch\util\ArrayUtils::get($arr,"key");
 		$this->assertEquals($value,$testValue);
 	}
 
 	public function testGetDefault() {
 		$arr = array("Key"=>"value");
-		$value = \scratch\utils\ArrayUtils::get($arr,"not a key",false);
+		$value = \scratch\util\ArrayUtils::get($arr,"not a key",false);
 		$this->assertFalse($value);
 	}
 
@@ -19,6 +19,6 @@ class ArrayUtilsTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testException() {
 		$arr = array();
-		\scratch\utils\ArrayUtils::get($arr,"missing key with no default");
+		\scratch\util\ArrayUtils::get($arr,"missing key with no default");
 	}
 }

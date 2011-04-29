@@ -2,7 +2,7 @@
 
 class StringUtilsTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @covers \scratch\utils\StringUtils
+	 * @covers \scratch\util\StringUtils
 	 */
 	public function testStringUtils() {
 		$null = NULL;
@@ -10,14 +10,14 @@ class StringUtilsTest extends PHPUnit_Framework_TestCase {
 		$blank = "  ";
 		$char = "abc";
 
-		$this->assertTrue(\scratch\utils\StringUtils::isEmpty($null));
-		$this->assertTrue(\scratch\utils\StringUtils::isEmpty($empty));
-		$this->assertFalse(\scratch\utils\StringUtils::isEmpty($blank));
-		$this->assertFalse(\scratch\utils\StringUtils::isEmpty($char));
+		$this->assertTrue(\scratch\util\StringUtils::isEmpty($null));
+		$this->assertTrue(\scratch\util\StringUtils::isEmpty($empty));
+		$this->assertFalse(\scratch\util\StringUtils::isEmpty($blank));
+		$this->assertFalse(\scratch\util\StringUtils::isEmpty($char));
 
-		$this->assertTrue(\scratch\utils\StringUtils::isBlank($null));
-		$this->assertTrue(\scratch\utils\StringUtils::isBlank($empty));
-		$this->assertTrue(\scratch\utils\StringUtils::isBlank($blank));
-		$this->assertFalse(\scratch\utils\StringUtils::isBlank($char));
+		$this->assertTrue(\scratch\util\StringUtils::isBlank($null));
+		$this->assertTrue(\scratch\util\StringUtils::isBlank($empty));
+		$this->assertTrue(\scratch\util\StringUtils::isBlank($blank));
+		$this->assertFalse(\scratch\util\StringUtils::isBlank($char));
 	}
 }
