@@ -2,7 +2,7 @@
 
 namespace scratch\util;
 
-class StringTokenizer implements ITokenize {
+class StringTokenizer implements Tokenizer {
 	private $delimiter = null;
 	private $data;
 	private $finished = false;

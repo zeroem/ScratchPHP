@@ -56,14 +56,14 @@ class ObserverTest extends PHPUnit_Extensions_OutputTestCase {
   Supporting Objects for the Observer pattern Tests
 */
 
-class TestObserverOneFails implements \scratch\util\IObserver {
+class TestObserverOneFails implements \scratch\util\Observer {
 	public function doObserve(\scratch\util\Event $event) {
 		print __CLASS__;
 		return false;
 	}
 }
 
-class TestObserverTwo implements \scratch\util\IObserver {
+class TestObserverTwo implements \scratch\util\Observer {
 	public function doObserve(\scratch\util\Event $event) {
 		print __CLASS__;
 	}

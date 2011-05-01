@@ -11,6 +11,6 @@ namespace scratch\util;
  *
  * @author Darrell Hamilton
  */
-interface ICommand {
+interface Command {
 	abstract function execute();
 }

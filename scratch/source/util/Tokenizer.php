@@ -2,6 +2,6 @@
 
 namespace scratch\util;
 
-interface ITokenize {
+interface Tokenizer {
 	public function next($token=null,&$last=null);
 }

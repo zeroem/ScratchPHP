@@ -2,6 +2,6 @@
 
 namespace scratch\util;
 
-interface IObserver {
+interface Observer {
 	public function doObserve(\scratch\util\Event $event);
 }

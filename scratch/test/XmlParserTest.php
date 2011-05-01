@@ -34,7 +34,7 @@ XML;
 	}
 }
 
-class XmlObserver implements \scratch\util\IObserver {
+class XmlObserver implements \scratch\util\Observer {
 	public $events = array();
 	public function doObserve(\scratch\util\Event $event) {
 		if(\scratch\util\ArrayUtils::get($this->events,$event->getType(),false) === false) {

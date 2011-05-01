@@ -21,7 +21,7 @@ abstract class AbstractSubject {
 	/**
 	 * Removes all instances of the given Observer
 	 */
-	public function removeObserver($type, \scratch\util\IObserver $obs = NULL) {
+	public function removeObserver($type, \scratch\util\Observer $obs = NULL) {
 		
 		if($obs !== NULL) {
 			$list = &ArrayUtils::get($this->observers,$type,false);;
@@ -60,9 +60,9 @@ abstract class AbstractSubject {
 	 * Attaches an observer
 	 *
 	 * @param string $type type of event to listen for
-	 * @param \Scratch\Observer $observer Object that will react to the event
+	 * @param \scratch\util\Observer $observer Object that will react to the event
 	 */
-	public function observe($type,\scratch\util\IObserver $observer) {
+	public function observe($type,\scratch\util\Observer $observer) {
 		if(ArrayUtils::get($this->observers,$type,false)===false) {
 			$this->observers[$type] = array();
 		}
