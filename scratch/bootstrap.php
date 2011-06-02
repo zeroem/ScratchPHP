@@ -1,12 +1,14 @@
 <?php
 
-define("SCRATCHPHP_INSTALL",realpath(__DIR__."/.."));
+if(!defined("SCRATCH_INSTALL_PATH")) {
+	define("SCRATCH_INSTALL_PATH",realpath(__DIR__."/.."));
+}
 
 /* 
    Force the working directory to be the ScratchPHP directory.
    Not sure if this is a good idea, may interfere with Unit Testing.
 */
-chdir(SCRATCHPHP_INSTALL);
+chdir(SCRATCH_INSTALL_PATH);
 
 
 /**

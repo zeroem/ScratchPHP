@@ -6,3 +6,6 @@
 
 # lua bytecode files
 *.lbc
+
+# build directory
+.build/

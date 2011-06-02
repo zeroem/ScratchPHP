@@ -2,7 +2,7 @@
 
 namespace scratch\server\http;
 
-class HttpRequestWrapper extends \scratch\server\ScratchRequest implements ScratchHttpRequest {
+class HttpRequestWrapper { //extends \scratch\server\ScratchRequest implements ScratchHttpRequest {
 	/**
 	 * Request protocol, eg HTTP/1.1
 	 * @var string

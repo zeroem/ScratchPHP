@@ -46,4 +46,13 @@ class RequestWrapper implements ScratchRequest {
 	public function removeAttribute($name) {
 		unset($this->attributes[$name]);
 	}
+
+	public function getLocale() {
+
+	}
+
+	public function getLocales() {
+
+	}
+
 }
