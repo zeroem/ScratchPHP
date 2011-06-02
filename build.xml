@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ScratchPHP" default="">
+  <property name="build_dir" value=".build" />
+  <property name="report_dir" value="${build_dir}/reports" />
+
+  <target name="build_dir">
+	<mkdir dir="${build_dir}" />
+  </target>
+  <target name="test">
+	<mkdir dir="${report_dir}/phpunit" />
+	
+	<!-- Initialize code coverage parameters so we can collect data during phpunit tests -->
+	<coverage-setup database="${report_dir}/coverage.db">
+	  <fileset dir="./">
+		<include name="**/source/**.php"/>
+	  </fileset>
+	</coverage-setup>
+	
+	<phpunit codecoverage="true" bootstrap="scratch/bootstrap.php">
+	  <formatter todir=".build/reports/phpunit" type="clover" />
+	  <batchtest>
+		<fileset dir="./">
+		  <include name="**/test/**.php" />
+		</fileset>
+	  </batchtest>
+	</phpunit>
+  </target>
+
+  <target name="clean">
+	<delete dir="${build_dir}" includeemptydirs="true" />
+  </target>
+</project>
